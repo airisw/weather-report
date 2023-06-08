@@ -5,6 +5,8 @@ const state = {
     decreaseTempControl: null,
     tempValue: null,
     landscape: null,
+    headerCityName: null,
+    cityNameInput: null,
     // data
     temp: 72,
 };
@@ -14,6 +16,8 @@ const loadControls = () => {
     state.decreaseTempControl = document.getElementById('decreaseTempControl');
     state.tempValue = document.getElementById('tempValue');
     state.landscape = document.getElementById('landscape');
+    state.headerCityName = document.getElementById('headerCityName');
+    state.cityNameInput = document.getElementById('cityNameInput');
 };
 
 const changeTempColor = () => {
@@ -54,11 +58,16 @@ const changeLandscape = () => {
     } else {
         state.landscape.textContent = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
     }
-}
+};
+
+const updateCityName = () => {
+    state.headerCityName.textContent = state.cityNameInput.value;
+};
 
 const registerEventHandlers = () => {
     state.increseTempControl.addEventListener('click', increaseTemp);
     state.decreaseTempControl.addEventListener('click', decreaseTemp);
+    state.cityNameInput.addEventListener('input', updateCityName);
 };
 
 loadControls();
