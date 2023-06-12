@@ -58,7 +58,8 @@ grid-row: 2;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 10px
+    border-radius: 10px;
+    box-shadow: 2px 2px #0000003c;
 }
 
 .sky__section {
@@ -85,7 +86,7 @@ justify-content: space-around;
 
 #tempValue {
 font-size: 3rem;
-margin-left: 1.5rem;
+/* margin-left: 1.5rem; */
 /* padding-right: 1rem; */
 /* margin-right: 1.5rem; */
 }
@@ -121,6 +122,15 @@ color: white;
 border-radius: 8px;
 padding: 1rem;
 font-family: "Rubik", sans-serif;
+box-shadow: 2px 2px #0000003c;
+}
+
+#currentTempButton:active,
+#increaseTempControl:active,
+#decreaseTempControl:active,
+.city-name__reset-btn:active {
+    transform: translateY(2px) translateX(2px);
+    box-shadow: 0 0 0;
 }
 
 .red {
