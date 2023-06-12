@@ -10,6 +10,7 @@ const state = {
     currentTempButton: null,
     skySelect: null,
     sky: null,
+    cityNameReset: null,
     // data
     temp: 72,
     cityName: 'Seattle',
@@ -25,6 +26,7 @@ const loadControls = () => {
     state.currentTempButton = document.getElementById('currentTempButton');
     state.skySelect = document.getElementById('skySelect');
     state.sky = document.getElementById('sky');
+    state.cityNameReset = document.getElementById('cityNameReset');
 };
 
 const changeTempColor = () => {
@@ -107,7 +109,13 @@ const changeSky = () => {
     } else {
         state.sky.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
     }
-}
+};
+
+const resetCity = () => {
+    state.cityName = 'Seattle';
+    state.cityNameInput.value = 'Seattle';
+    state.headerCityName.textContent = 'Seattle';
+};
 
 const registerEventHandlers = () => {
     state.increseTempControl.addEventListener('click', increaseTemp);
@@ -115,6 +123,7 @@ const registerEventHandlers = () => {
     state.cityNameInput.addEventListener('input', updateCityName);
     state.currentTempButton.addEventListener('click', currentTemp);
     state.skySelect.addEventListener('change', changeSky);
+    state.cityNameReset.addEventListener('click', resetCity);
 };
 
 loadControls();
