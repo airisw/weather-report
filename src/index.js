@@ -89,7 +89,7 @@ const convertTemp = temp => {
 };
 
 const getLocation = (city) => {
-    return axios.get('http://localhost:5000/location', {params: {q:city}})
+    return axios.get('https://weather-report-proxy-server-airis.onrender.com/location', {params: {q:city}})
         .then(response => {
             const lat = response.data[0].lat;
             const lon = response.data[0].lon;
@@ -101,7 +101,7 @@ const getLocation = (city) => {
 };
 
 const getWeather = (coordinates) => {
-    return axios.get('http://localhost:5000/weather', {params: {lat: coordinates.lat, lon: coordinates.lon}})
+    return axios.get('https://weather-report-proxy-server-airis.onrender.com/weather', {params: {lat: coordinates.lat, lon: coordinates.lon}})
         .then(response => {
             state.temp = convertTemp(response.data.main.temp);
             state.tempValue.textContent = state.temp;
