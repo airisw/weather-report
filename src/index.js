@@ -11,6 +11,7 @@ const state = {
     skySelect: null,
     sky: null,
     cityNameReset: null,
+    gardenContent: null,
     // data
     temp: 72,
     cityName: 'Seattle',
@@ -27,14 +28,29 @@ const loadControls = () => {
 const changeTempColor = () => {
     if (state.temp >= 80) {
         state.tempValue.setAttribute('class', 'red');
+        document.body.style.backgroundColor = '#b21e35';
+        state.currentTempButton.style.backgroundColor = '#b21e35';
+        state.cityNameReset.style.backgroundColor = '#b21e35';
     } else if (state.temp >= 70 && state.temp <= 79) {
         state.tempValue.setAttribute('class', 'orange');
+        document.body.style.backgroundColor = '#de6b48';
+        state.currentTempButton.style.backgroundColor = '#de6b48';
+        state.cityNameReset.style.backgroundColor = '#de6b48';
     } else if (state.temp >= 60 && state.temp <= 69) {
         state.tempValue.setAttribute('class', 'yellow');
+        document.body.style.backgroundColor = '#e9c46a';
+        state.currentTempButton.style.backgroundColor = '#e9c46a';
+        state.cityNameReset.style.backgroundColor = '#e9c46a';
     } else if (state.temp >= 50 && state.temp <= 59) {
         state.tempValue.setAttribute('class', 'green');
+        document.body.style.backgroundColor = '#4c956c';
+        state.currentTempButton.style.backgroundColor = '#4c956c';
+        state.cityNameReset.style.backgroundColor = '#4c956c';
     } else {
         state.tempValue.setAttribute('class', 'teal');
+        document.body.style.backgroundColor = '#40919c';
+        state.currentTempButton.style.backgroundColor = '#40919c';
+        state.cityNameReset.style.backgroundColor = '#40919c';
     }
 };
 
@@ -107,12 +123,16 @@ const getCurrentTemp = () => {
 const changeSky = () => {
     if (state.skySelect.value === 'sunny') {
         state.sky.textContent = '☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
+        state.gardenContent.setAttribute('class', 'garden__content sunny');
     } else if (state.skySelect.value === 'cloudy') {
         state.sky.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
+        state.gardenContent.setAttribute('class', 'garden__content cloudy');
     } else if (state.skySelect.value === 'rainy') {
-        state.sky.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
+        state.sky.textContent = '🌧🌈⛈️🌧🌧💧⛈️🌧🌦🌧💧🌧🌧';
+        state.gardenContent.setAttribute('class', 'garden__content rainy');
     } else {
         state.sky.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+        state.gardenContent.setAttribute('class', 'garden__content snowy');
     }
 };
 
@@ -132,5 +152,4 @@ const registerEventHandlers = () => {
 };
 
 loadControls();
-console.log(state);
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
