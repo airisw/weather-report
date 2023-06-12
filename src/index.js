@@ -7,8 +7,10 @@ const state = {
     landscape: null,
     headerCityName: null,
     cityNameInput: null,
+    currentTempButton: null,
     // data
     temp: 72,
+    cityName: 'Seattle',
 };
 
 const loadControls = () => {
@@ -18,6 +20,7 @@ const loadControls = () => {
     state.landscape = document.getElementById('landscape');
     state.headerCityName = document.getElementById('headerCityName');
     state.cityNameInput = document.getElementById('cityNameInput');
+    state.currentTempButton = document.getElementById('currentTempButton');
 };
 
 const changeTempColor = () => {
@@ -64,10 +67,37 @@ const updateCityName = () => {
     state.headerCityName.textContent = state.cityNameInput.value;
 };
 
+const convertTemp = temp => {
+    return Math.round(1.8 * (temp - 273.15) + 32);
+};
+
+const currentTemp = () => {
+    axios.get('http://localhost:5000/location', {params: {q:state.cityNameInput.value}})
+        .then(response => {
+            const lat = response.data[0].lat;
+            const lon = response.data[0].lon;
+
+            axios.get('http://localhost:5000/weather', {params: {lat: lat, lon: lon}})
+                .then(response => {
+                    state.temp = convertTemp(response.data.main.temp);
+                    state.tempValue.textContent = state.temp;
+                    changeTempColor();
+                    changeLandscape();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
 const registerEventHandlers = () => {
     state.increseTempControl.addEventListener('click', increaseTemp);
     state.decreaseTempControl.addEventListener('click', decreaseTemp);
     state.cityNameInput.addEventListener('input', updateCityName);
+    state.currentTempButton.addEventListener('click', currentTemp);
 };
 
 loadControls();
