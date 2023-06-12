@@ -8,6 +8,8 @@ const state = {
     headerCityName: null,
     cityNameInput: null,
     currentTempButton: null,
+    skySelect: null,
+    sky: null,
     // data
     temp: 72,
     cityName: 'Seattle',
@@ -21,6 +23,8 @@ const loadControls = () => {
     state.headerCityName = document.getElementById('headerCityName');
     state.cityNameInput = document.getElementById('cityNameInput');
     state.currentTempButton = document.getElementById('currentTempButton');
+    state.skySelect = document.getElementById('skySelect');
+    state.sky = document.getElementById('sky');
 };
 
 const changeTempColor = () => {
@@ -93,11 +97,24 @@ const currentTemp = () => {
         });
 };
 
+const changeSky = () => {
+    if (state.skySelect.value === 'sunny') {
+        state.sky.textContent = '☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
+    } else if (state.skySelect.value === 'cloudy') {
+        state.sky.textContent = '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
+    } else if (state.skySelect.value === 'rainy') {
+        state.sky.textContent = '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
+    } else {
+        state.sky.textContent = '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+    }
+}
+
 const registerEventHandlers = () => {
     state.increseTempControl.addEventListener('click', increaseTemp);
     state.decreaseTempControl.addEventListener('click', decreaseTemp);
     state.cityNameInput.addEventListener('input', updateCityName);
     state.currentTempButton.addEventListener('click', currentTemp);
+    state.skySelect.addEventListener('change', changeSky);
 };
 
 loadControls();
