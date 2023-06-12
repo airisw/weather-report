@@ -77,27 +77,37 @@ const convertTemp = temp => {
     return Math.round(1.8 * (temp - 273.15) + 32);
 };
 
-const currentTemp = () => {
-    axios.get('http://localhost:5000/location', {params: {q:state.cityNameInput.value}})
+const getLocation = (city) => {
+    return axios.get('http://localhost:5000/location', {params: {q:city}})
         .then(response => {
             const lat = response.data[0].lat;
             const lon = response.data[0].lon;
-
-            axios.get('http://localhost:5000/weather', {params: {lat: lat, lon: lon}})
-                .then(response => {
-                    state.temp = convertTemp(response.data.main.temp);
-                    state.tempValue.textContent = state.temp;
-                    changeTempColor();
-                    changeLandscape();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            return {lat, lon}
         })
         .catch(err => {
             console.log(err);
         });
 };
+
+const getWeather = (coordinates) => {
+    return axios.get('http://localhost:5000/weather', {params: {lat: coordinates.lat, lon: coordinates.lon}})
+        .then(response => {
+            state.temp = convertTemp(response.data.main.temp);
+            state.tempValue.textContent = state.temp;
+            changeTempColor();
+            changeLandscape();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+const getCurrentTemp = () => {
+    getLocation(state.cityNameInput.value)
+    .then((lat, lon) => {
+        getWeather(lat, lon);
+    })
+}
 
 const changeSky = () => {
     if (state.skySelect.value === 'sunny') {
@@ -121,7 +131,7 @@ const registerEventHandlers = () => {
     state.increseTempControl.addEventListener('click', increaseTemp);
     state.decreaseTempControl.addEventListener('click', decreaseTemp);
     state.cityNameInput.addEventListener('input', updateCityName);
-    state.currentTempButton.addEventListener('click', currentTemp);
+    state.currentTempButton.addEventListener('click', getCurrentTemp);
     state.skySelect.addEventListener('change', changeSky);
     state.cityNameReset.addEventListener('click', resetCity);
 };
