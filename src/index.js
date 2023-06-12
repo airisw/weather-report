@@ -1,7 +1,7 @@
 "use strict";
 
 const state = {
-    increseTempControl: null,
+    increaseTempControl: null,
     decreaseTempControl: null,
     tempValue: null,
     landscape: null,
@@ -17,16 +17,11 @@ const state = {
 };
 
 const loadControls = () => {
-    state.increseTempControl = document.getElementById('increaseTempControl');
-    state.decreaseTempControl = document.getElementById('decreaseTempControl');
-    state.tempValue = document.getElementById('tempValue');
-    state.landscape = document.getElementById('landscape');
-    state.headerCityName = document.getElementById('headerCityName');
-    state.cityNameInput = document.getElementById('cityNameInput');
-    state.currentTempButton = document.getElementById('currentTempButton');
-    state.skySelect = document.getElementById('skySelect');
-    state.sky = document.getElementById('sky');
-    state.cityNameReset = document.getElementById('cityNameReset');
+    for (const element in state) {
+        if (state[element] === null) {
+            state[element] = document.getElementById(String(element));
+        }
+    }
 };
 
 const changeTempColor = () => {
@@ -128,7 +123,7 @@ const resetCity = () => {
 };
 
 const registerEventHandlers = () => {
-    state.increseTempControl.addEventListener('click', increaseTemp);
+    state.increaseTempControl.addEventListener('click', increaseTemp);
     state.decreaseTempControl.addEventListener('click', decreaseTemp);
     state.cityNameInput.addEventListener('input', updateCityName);
     state.currentTempButton.addEventListener('click', getCurrentTemp);
@@ -137,4 +132,5 @@ const registerEventHandlers = () => {
 };
 
 loadControls();
+console.log(state);
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
